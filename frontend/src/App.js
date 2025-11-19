@@ -9,7 +9,7 @@ function App() {
       .then(data => setMsg(data.message));
   }, []);
 
-  return <h1>Frontend Connected → {msg}</h1>;
+  return <h1>Frontend Connected vaishnavi → {msg}</h1>;
 }
 
 export default App;
