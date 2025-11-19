@@ -12,7 +12,6 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    # ---------- SETUP DOCKER ----------
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
 
@@ -22,33 +21,33 @@ jobs:
     # ---------- BUILD BACKEND ----------
     - name: Build backend image
       run: |
-        docker buildx build --load -t ${{ secrets.DOCKERHUB_USERNAME }}/fullstack-backend:latest ./backend
+        docker buildx build --load \
+        -t ${{ secrets.DOCKERHUB_USERNAME }}/fullstack-backend:latest \
+        ./backend
 
     # ---------- BUILD FRONTEND ----------
     - name: Build frontend image
       run: |
-        docker buildx build --load -t ${{ secrets.DOCKERHUB_USERNAME }}/fullstack-frontend:latest ./frontend
+        docker buildx build --load \
+        -t ${{ secrets.DOCKERHUB_USERNAME }}/fullstack-frontend:latest \
+        ./frontend
 
-    # ---------- DOCKERHUB LOGIN ----------
     - name: DockerHub Login
       uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    # ---------- PUSH IMAGES ----------
     - name: Push Docker images
       run: |
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/fullstack-backend:latest
         docker push ${{ secrets.DOCKERHUB_USERNAME }}/fullstack-frontend:latest
 
-    # ---------- UPDATE HELM VALUES ----------
     - name: Update image tags in Helm chart
       run: |
         sed -i "s#image: .*fullstack-backend.*#image: \"${{ secrets.DOCKERHUB_USERNAME }}/fullstack-backend:latest\"#g" charts/fullstack/values.yaml
         sed -i "s#image: .*fullstack-frontend.*#image: \"${{ secrets.DOCKERHUB_USERNAME }}/fullstack-frontend:latest\"#g" charts/fullstack/values.yaml
 
-    # ---------- COMMIT UPDATED HELM CHART ----------
     - name: Commit Helm changes
       run: |
         git config --global user.name "github-actions"
