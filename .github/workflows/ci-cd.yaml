@@ -23,11 +23,11 @@ jobs:
 
     # ---------- BUILD BACKEND ----------
     - name: Build backend image
-      run: docker buildx build --load -t ${{ secrets.DOCKERHUB_USERNAME }}/fullstack-backend:latest ./backend
+      run: docker buildx build --load -t vaishnavi126/fullstack-backend:latest ./backend
 
     # ---------- BUILD FRONTEND ----------
     - name: Build frontend image
-      run: docker buildx build --load -t ${{ secrets.DOCKERHUB_USERNAME }}/fullstack-frontend:latest ./frontend
+      run: docker buildx build --load -t vaishnavi126/fullstack-frontend:latest ./frontend
 
     # ---------- DOCKER LOGIN ----------
     - name: DockerHub Login
