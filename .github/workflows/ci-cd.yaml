@@ -12,6 +12,9 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
+    - name: Debug docker username secret
+      run: echo "USERNAME=${{ secrets.DOCKERHUB_USERNAME }}"
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
 
