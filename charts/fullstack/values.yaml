@@ -1,0 +1,14 @@
+frontend:
+  image: "vaishnavi126/fullstack-frontend:v1"
+  replicas: 1
+
+backend:
+  image: "vaishnavi126/fullstack-backend:v1"
+  replicas: 1
+
+ports:
+  frontend: 80
+  backend: 8080
+
+ingress:
+  enabled: true
