@@ -39,8 +39,8 @@ jobs:
     # ---------- PUSH IMAGES ----------
     - name: Push Docker images
       run: |
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/fullstack-backend:latest
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/fullstack-frontend:latest
+        docker push vaishnavi126/fullstack-backend:latest
+        docker push vaishnavi126/fullstack-frontend:latest
 
     # ---------- UPDATE HELM ----------
     - name: Update image tags in Helm chart
