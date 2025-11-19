@@ -43,16 +43,3 @@ jobs:
         docker push vaishnavi126/fullstack-frontend:latest
 
     # ---------- UPDATE HELM ----------
-    - name: Update image tags in Helm chart
-      run: |
-        sed -i "s#image: .*fullstack-backend.*#image: \"${{ secrets.DOCKERHUB_USERNAME }}/fullstack-backend:latest\"#g" charts/fullstack/values.yaml
-        sed -i "s#image: .*fullstack-frontend.*#image: \"${{ secrets.DOCKERHUB_USERNAME }}/fullstack-frontend:latest\"#g" charts/fullstack/values.yaml
-
-    # ---------- COMMIT HELM CHANGES ----------
-    - name: Commit Helm changes
-      run: |
-        git config --global user.name "github-actions"
-        git config --global user.email "actions@github.com"
-        git add charts/fullstack/values.yaml
-        git commit -m "ci: update image tags" || echo "No changes"
-        git push
